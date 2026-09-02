@@ -10,9 +10,9 @@ import argparse
 import json
 import sys
 
+from detectors.encoding_checks import scan_encoding
 from detectors.injection_patterns import scan_injection
 from detectors.jailbreak_patterns import scan_jailbreak
-from detectors.encoding_checks import scan_encoding
 
 
 def analyze(text: str) -> dict:

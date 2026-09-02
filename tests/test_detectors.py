@@ -3,14 +3,14 @@ Unit tests for PromptGuard detectors.
 Run with: pytest tests/
 """
 
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+from detectors.encoding_checks import scan_encoding
 from detectors.injection_patterns import scan_injection
 from detectors.jailbreak_patterns import scan_jailbreak
-from detectors.encoding_checks import scan_encoding
 
 
 def test_injection_detects_ignore_instructions():

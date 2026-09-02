@@ -19,7 +19,7 @@ def _try_decode_base64(candidate: str) -> str:
     try:
         decoded = base64.b64decode(candidate + "==", validate=False)
         return decoded.decode("utf-8", errors="ignore")
-    except Exception:
+    except (ValueError, UnicodeDecodeError):
         return ""
 
 
