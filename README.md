@@ -82,9 +82,31 @@ PromptGuard/
 │   └── encoding_checks.py
 ├── tests/
 │   └── test_detectors.py
+├── dataset/                 # PromptGuard-AI-001 v0.1 benchmark
+├── tools/
+│   ├── generate_dataset.py  # Rebuild the frozen synthetic dataset
+│   └── benchmark.py          # Reproducible baseline metrics
 ├── requirements.txt
 └── README.md
 ```
+
+## PromptGuard-AI-001 benchmark
+
+This repository includes a 250-record, research-authored synthetic dataset for evaluating the current unmodified detector. It contains 100 attack samples, 100 normal benign prompts, and 50 security/educational hard negatives across the A01–A11 and B01–B03 taxonomy. The dataset is intended to measure performance on these experimental conditions only; it is not a claim about real-world prevalence, complete AI security, or production protection.
+
+Regenerate the deterministic JSONL files and hash with:
+
+```bash
+python tools/generate_dataset.py
+```
+
+Run the held-out baseline at threshold 4 and compare thresholds 2–6 with:
+
+```bash
+python tools/benchmark.py --dataset dataset/heldout_test.jsonl --output results/baseline_v0.1.json
+```
+
+The benchmark records accuracy, precision, recall, F1, FPR, FNR, category/transformation/language breakdowns, detector finding counts, dataset SHA-256, commit, Python version, threshold, and raw per-sample results. Read `dataset/README.md` before changing or extending the dataset; related variants must remain together during development/test splitting and the held-out set must not be used for rule tuning.
 
 ---
 
