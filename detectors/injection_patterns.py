@@ -19,6 +19,13 @@ _INJECTION_PATTERNS = [
     (r"print (your |the )?(initial|original) prompt", "Prompt Leakage Attempt", 4),
     (r"act as if (you have no|there are no) (restrictions|rules|filters)", "Restriction Bypass", 5),
     (r"bypass (your |all )?(filters?|restrictions?|safety)", "Restriction Bypass", 5),
+    # Experimental Hindi/Hinglish patterns. Keep these narrow and auditable;
+    # they are triage signals, not language-complete detection.
+    (r"\b(?:pichhle|pehle ke|upar diye gaye)\s+(?:sabhi\s+)?(?:nirdesh\w*|instructions?|niyam\w*|rules?)\s+(?:ko\s+)?(?:ignore(?:\s+karo)?|nazara(?:ndaaz)?(?:\s+karo)?|bhool(?:\s+jao)?)\b", "Instruction Override", 5),
+    (r"\b(?:ignore\s+karo|bhool\s+jao)\s+(?:saare\s+)?(?:pichhle\s+)?(?:instructions?|nirdesh\w*|niyam\w*)\b", "Instruction Override", 5),
+    (r"\b(?:apna|apne|tumhara|aapka)\s+(?:system\s+prompt|system\s+instructions?)\s+(?:batao|dikhao|do|reveal\s+karo)\b", "Prompt Leakage Attempt", 4),
+    (r"\b(?:पिछले|पहले के|ऊपर दिए गए)\s+(?:सभी\s+)?(?:निर्देश|नियम)[\u0900-\u097f]*\s+(?:को\s+)?(?:भूल\s+जाओ|नज़रअंदाज़\s+करो|अनदेखा\s+करो)", "Instruction Override", 5),
+    (r"\b(?:अपना|अपने|तुम्हारा|आपका)\s+(?:सिस्टम\s+प्रॉम्प्ट|सिस्टम\s+निर्देश)\s+(?:बताओ|दिखाओ|उजागर\s+करो)\b", "Prompt Leakage Attempt", 4),
 ]
 
 _COMPILED = [(re.compile(p, re.IGNORECASE), cat, w) for p, cat, w in _INJECTION_PATTERNS]
