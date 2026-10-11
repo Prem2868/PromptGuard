@@ -69,6 +69,10 @@ PromptGuard uses a layered heuristic approach:
 
 This is a **rule-based detector**, not a model-based classifier — it's meant to be fast, transparent, and auditable (no black-box ML decisions), making it easy to extend with your own rules.
 
+### Experimental Hindi/Hinglish coverage
+
+The injection detector includes a small set of Hindi/Hinglish instruction-override and system-prompt-extraction patterns in both Latin transliteration and Devanagari. This is early, phrase-based coverage—not comprehensive Hindi understanding or a reliable standalone security boundary. Wording, dialect, spelling, code-switching, and context can cause false positives or missed attacks; review findings before taking action. Contributions should add a focused positive test and a benign negative test for each new pattern.
+
 ---
 
 ## 📂 Project Structure
@@ -113,7 +117,7 @@ The benchmark records accuracy, precision, recall, F1, FPR, FNR, category/transf
 ## 🛠️ Roadmap
 
 - [ ] Add YAML-based custom rule definitions
-- [ ] Add multi-language pattern support (Hindi/Hinglish injection attempts)
+- [x] Add initial Hindi/Hinglish pattern coverage (experimental; see limitations above)
 - [ ] Optional ML-based scoring layer (sentence embeddings)
 - [ ] FastAPI wrapper for use as a microservice
 - [ ] Pre-commit hook integration for LLM app repos
